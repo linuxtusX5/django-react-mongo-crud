@@ -5,10 +5,10 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-_2@ro$d44joaj#sk*0w-unn$72%-u2&!(i6lyxrj_@w$*!iiv='
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'api',
 ]
 
@@ -66,7 +67,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 AUTHENTICATION_BACKENDS = [
-    "api.DB.MongoDB",  # our custom backend (Mongo)
+    "api.DB.MongoDB.MongoDBBackend",  # our custom backend (Mongo)
 ]
 
 # Password validation
@@ -109,3 +110,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Allow React FE
+CORS_ALLOW_ALL_ORIGINS = True
+
+# REST Framework config
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
