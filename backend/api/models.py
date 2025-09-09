@@ -15,3 +15,10 @@ class User(me.Document):
     def __str__(self):
         return self.username
     
+class Item(me.Document):
+    name = me.StringField(required=True)
+    description = me.StringField(required=True)
+    created_at = me.DateTimeField(required=True)
+
+    def __str__(self):
+        return self.name
