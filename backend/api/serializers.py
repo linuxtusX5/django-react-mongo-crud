@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework_mongoengine.serializers import DocumentSerializer
 from .models import User, Item
 
 class UserSerializer(DocumentSerializer):

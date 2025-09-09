@@ -1,13 +1,13 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.view import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
 from .models import User
 from .serializers import UserSerializer, RegisterSerializer
 
 # Register
 class RegisterView(generics.CreateAPIView):
-    queryset = User.objects
+    queryset = User.objects.all()
     serializer_class = RegisterSerializer
 
 # Login
