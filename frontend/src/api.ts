@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: process.env.VITE_BE_API_URL,
+  baseURL: import.meta.env.VITE_BE_API_URL,
 });
 
 export const register = (data: {

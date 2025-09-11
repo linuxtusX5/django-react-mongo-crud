@@ -1,20 +1,55 @@
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { fetchItems, createItem } from "../api";
 
-const API = axios.create({
-  baseURL: process.env.VITE_BE_API_URL,
-});
+interface Item {
+  id: string;
+  name: string;
+  description: string;
+}
 
-export const register = (data: {
-  username: string;
-  email: string;
-  password: string;
-}) => API.post("/register/", data);
-export const login = (data: { username: string; password: string }) =>
-  API.post("/login/", data);
-export const fetchItems = (token: string) =>
-  API.get("/items/", { headers: { Authorization: `Bearer ${token}` } });
-export const createItem = (
-  token: string,
-  data: { name: string; description: string }
-) =>
-  API.post("/items/", data, { headers: { Authorization: `Bearer ${token}` } });
+const CRUD: React.FC<{ token: string }> = ({ token }) => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const loadItems = async () => {
+    const res = await fetchItems(token);
+    setItems(res.data);
+  };
+
+  const addItem = async () => {
+    await createItem(token, { name, description });
+    setName("");
+    setDescription("");
+    loadItems();
+  };
+
+  useEffect(() => {
+    loadItems();
+  }, []);
+
+  return (
+    <div>
+      <h1>My Items</h1>
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+      />
+      <input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Description"
+      />
+      <button onClick={addItem}>Add Item</button>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.name}: {item.description}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+export default CRUD;
