@@ -1,42 +1,133 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  background: #dcd6d8;
+  padding: 0;
+  margin: 0;
+}
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 35px;
+  font-size: 16px;
+  width: 90vh;
+  color: #0e0c0c;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #f3f1f2;
+}
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 17px;
+  width: 17px;
+  background-color: #eee;
+  border-radius: 50%;
+  border: 2px solid #df2060;
+}
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.todo-text {
+  background: #f3f1f2;
+}
+.todo-text.completed {
+  color: #c4bbbe;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #ed759d;
+  border: 2px solid #ed759d;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+input:checked {
+  text-decoration: line-through;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 4.5px;
+  top: 1px;
+  width: 5px;
+  height: 7.5px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.bts {
+  position: absolute;
+  right: 0;
+  border-style: none;
+  font-size: 16px;
+  background: #f3f1f2;
+  cursor: pointer;
+}
+.bts1 {
+  position: absolute;
+  right: 0;
+  border-style: none;
+  font-size: 16px;
+  background: #f3f1f2;
+  cursor: pointer;
+}
+.bts2 {
+  position: absolute;
+  right: 10vh;
+  border-style: none;
+  font-size: 16px;
+  background: #f3f1f2;
+  cursor: pointer;
+}
+.bts:hover {
+  color: #df2060;
+}
+.bts1:hover {
+  color: #df2060;
+}
+.bts2:hover {
+  color: #df2060;
+}
+@media (max-width: 768px) {
+  .container {
+    margin-top: 20px;
+    width: 35vh;
+    height: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+  .todo-text {
+    left: 30px;
+    position: absolute;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .bts {
+    left: 35vh;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .bts1 {
+    left: 15vh;
+  }
+  .bts2 {
+    left: 10vh;
+  }
 }

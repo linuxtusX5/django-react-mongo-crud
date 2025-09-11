@@ -4,13 +4,10 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_BE_API_URL,
 });
 
-export const register = (data: {
-  username: string;
-  email: string;
-  password: string;
-}) => API.post("/auth/register/", data);
+export const register = (data: { email: string; password: string }) =>
+  API.post("/auth/register/", data);
 
-export const login = (data: { username: string; password: string }) =>
+export const login = (data: { email: string; password: string }) =>
   API.post("/auth/login/", data);
 
 export const fetchItems = (token: string) =>

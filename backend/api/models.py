@@ -2,7 +2,6 @@ import mongoengine as me
 from django.contrib.auth.hashers import make_password, check_password
 
 class User(me.Document):
-    username = me.StringField(required=True, unique=True)
     email = me.EmailField(required=True, unique=True)
     password = me.StringField(required=True)
 
@@ -13,8 +12,8 @@ class User(me.Document):
         return check_password(raw_password, self.password)
 
     def __str__(self):
-        return self.username
-    
+        return self.email
+
 class Item(me.Document):
     name = me.StringField(required=True)
     description = me.StringField(required=True)
