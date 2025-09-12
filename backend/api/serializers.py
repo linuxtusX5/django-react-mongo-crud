@@ -4,7 +4,7 @@ from .models import User, Item
 class UserSerializer(DocumentSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'email', 'password']
         # extra_kwargs = {'password': {'write_only': True}}
 
 class RegisterSerializer(DocumentSerializer):
