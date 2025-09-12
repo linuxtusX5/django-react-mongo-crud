@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Index from "./pages/Signup";
+import PublicRoute from "./components/PublicRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home";
 
 import "./App.css";
 
@@ -10,19 +13,19 @@ function App() {
         <Route
           path="/signup/login"
           element={
-            // <PublicRoute>
-            <Index />
-            // </PublicRoute>
+            <PublicRoute>
+              <Index />
+            </PublicRoute>
           }
         />
-        {/* <Route
+        <Route
           path="/"
           element={
             <ProtectedRoute>
               <Home />
             </ProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
     </Router>
   );
