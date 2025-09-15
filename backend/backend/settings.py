@@ -2,6 +2,8 @@
 from pathlib import Path
 from mongoengine import connect
 from decouple import config
+from corsheaders.defaults import default_headers
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,11 +117,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Allow React FE
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "Authorization",
+]
 
 # REST Framework config
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "USER_ID_FIELD": "id",            # default
+    "USER_ID_CLAIM": "user_id",       # default
+    "SIGNING_KEY": SECRET_KEY,
+    "ALGORITHM": "HS256",
+    "TOKEN_TYPE_CLAIM": "token_type",
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
