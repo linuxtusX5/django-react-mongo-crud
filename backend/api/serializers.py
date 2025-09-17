@@ -1,5 +1,5 @@
 from rest_framework_mongoengine.serializers import DocumentSerializer
-from .models import User, Item
+from .models import User, Todo
 
 class UserSerializer(DocumentSerializer):
     class Meta:
@@ -19,7 +19,7 @@ class RegisterSerializer(DocumentSerializer):
         user.save()
         return user
 
-class ItemSerializer(DocumentSerializer):
+class TodoSerializer(DocumentSerializer):
     class Meta:
-        model = Item
-        fields = ['id', 'name', 'description', 'created_at']
+        model = Todo
+        fields = ['id', 'title', 'created_at', 'user']
