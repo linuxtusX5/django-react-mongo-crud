@@ -63,16 +63,19 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-connect(
-    db=config('MONGO_NAME'),
-    host=config('MONGO_URI'),
-)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django',
+        'NAME': 'Django_Crud',
+        'CLIENT': {
+            'host': config('MONGO_URI'),
+        },
+    }
+}
+# connect(
+#     db=config('MONGO_NAME'),
+#     host=config('MONGO_URI'),
+# )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
