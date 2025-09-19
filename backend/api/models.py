@@ -1,4 +1,5 @@
 import mongoengine as me
+from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
 class User(me.Document):
@@ -14,10 +15,10 @@ class User(me.Document):
     def __str__(self):
         return self.email
 
-class Item(me.Document):
-    name = me.StringField(required=True)
-    description = me.StringField(required=True)
-    created_at = me.DateTimeField(required=True)
+class Todo(models.Model):
+    title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.title
