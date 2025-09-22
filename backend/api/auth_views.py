@@ -1,9 +1,10 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
-from .models import User
-from .serializers import UserSerializer, RegisterSerializer
+from .models import User, Todo
+from .serializers import UserSerializer, RegisterSerializer, TodoSerializer
 
 # Register
 class RegisterView(generics.CreateAPIView):
@@ -12,6 +13,8 @@ class RegisterView(generics.CreateAPIView):
 
 # Login
 class LoginView(generics.GenericAPIView):
+    permission_classes = [AllowAny] 
+
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
@@ -30,3 +33,8 @@ class LoginView(generics.GenericAPIView):
             'access': str(refresh.access_token), 
             'user': UserSerializer(user).data
             })
+
+#Todo
+class TodoView(generics.CreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
